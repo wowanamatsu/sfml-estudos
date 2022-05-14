@@ -1,4 +1,5 @@
 #include "stdafx.hpp"
+#include "player.hpp"
 
 int main() {
     
@@ -7,6 +8,8 @@ int main() {
     
     window.setFramerateLimit(FPS);
     
+    Player player;
+    
     while( window.isOpen() ) {
         while( window.pollEvent(e) )
             if( e.type == sf::Event::Closed || e.key.code == sf::Keyboard::Escape )
@@ -14,6 +17,8 @@ int main() {
             
         window.clear();
         
+        //DRAWING
+        player.render( window );
         
         window.display();
     }
