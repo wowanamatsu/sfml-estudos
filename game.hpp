@@ -1,5 +1,7 @@
 #pragma once
 #include "stdafx.hpp"
+#include "states/gamestate.hpp"
+
 
 class Game {
 
@@ -11,9 +13,17 @@ private:
     sf::Clock dtClock;
     float delta;
 
+    std::stack<State*> states;
+
     //--------------------------------------------------------------------------------------------
     void initWindow() {
         window = new sf::RenderWindow( sf::VideoMode(SCREEN_W, SCREEN_H), "Estudos de C++ com SFML");
+        window->setFramerateLimit(120);
+    }
+
+    //--------------------------------------------------------------------------------------------
+    void initStates() {
+        states.push( new GameState(window) );
     }
 
 
@@ -21,9 +31,16 @@ public:
 
     Game() {
         initWindow();
+        initStates();
     }
 
-    virtual ~Game() { delete window; }
+    virtual ~Game() { 
+        delete window;
+        while( !states.empty() ) {
+            delete states.top();
+            states.pop();
+        }
+    }
 
     //================================== FUNCTIONS ===============================================
 
@@ -44,11 +61,15 @@ public:
     //--------------------------------------------------------------------------------------------
     void update() {
         updateEvents();
+        if(!states.empty()) states.top()->update( delta );
     }
 
     //--------------------------------------------------------------------------------------------
     void render() {
         window->clear();
+
+        //Draw
+        if(!states.empty()) states.top()->render();
 
         window->display();
     }
