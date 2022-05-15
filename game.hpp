@@ -44,6 +44,11 @@ public:
 
     //================================== FUNCTIONS ===============================================
 
+    void endApplication() {
+
+    }
+
+    //--------------------------------------------------------------------------------------------
     void updateDelta() {
         //Atualiza a variável delta a cada autlização de frame.
         delta = dtClock.restart().asSeconds();
@@ -53,7 +58,7 @@ public:
     //--------------------------------------------------------------------------------------------
     void updateEvents() {
         while (window->pollEvent(e))
-            if(e.type == sf::Event::Closed || e.key.code == sf::Keyboard::Escape)
+            if(e.type == sf::Event::Closed)
                 window->close();
         
     }
@@ -61,7 +66,19 @@ public:
     //--------------------------------------------------------------------------------------------
     void update() {
         updateEvents();
-        if(!states.empty()) states.top()->update( delta );
+        if(!states.empty()) {
+            states.top()->update( delta );
+
+            if(states.top()->getQuit()) {
+                states.top()->endState();
+                delete states.top();
+                states.pop();
+            }
+        }else {
+            //Encerra a aplicação
+            endApplication();
+            window->close();
+        }
     }
 
     //--------------------------------------------------------------------------------------------
