@@ -6,6 +6,6 @@
 #include <SFML/Graphics.hpp>
 
 //Constants
-const int SCREEN_WIDTH  = 1280;
-const int SCREEN_HEIGHT = 720;
-const int FPS           = 60;
+const int SCREEN_W  = 1280;
+const int SCREEN_H  = 720;
+const int FPS       = 60;
