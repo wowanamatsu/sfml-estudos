@@ -4,7 +4,7 @@
 class GameState : public State {
 
 private:
-
+    Entity player;
 
 public:
     GameState( sf::RenderWindow* window ) : State(window) {
@@ -24,9 +24,13 @@ public:
     //--------------------------------------------------------------------------------------------
     void update( const float& dt ) {
         updateKeyBinds( dt );
+
+        player.update(dt);
     }
 
     //--------------------------------------------------------------------------------------------
-    void render( sf::RenderTarget* target=nullptr ) {}
+    void render( sf::RenderTarget* target ) {
+        player.render( window );
+    }
 
 };
