@@ -14,6 +14,7 @@ private:
     float delta;
 
     std::stack<State*> states;
+    std::map<std::string, int> supportedKeys;
 
     //--------------------------------------------------------------------------------------------
     void initWindow() {
@@ -23,7 +24,15 @@ private:
 
     //--------------------------------------------------------------------------------------------
     void initStates() {
-        states.push( new GameState(window) );
+        states.push( new GameState(window, &supportedKeys) );
+    }
+
+    //--------------------------------------------------------------------------------------------
+    void initKeys() {
+        supportedKeys.emplace("A", sf::Keyboard::A);
+        supportedKeys.emplace("D", sf::Keyboard::D);
+        supportedKeys.emplace("W", sf::Keyboard::W);
+        supportedKeys.emplace("S", sf::Keyboard::S);
     }
 
 
@@ -31,6 +40,7 @@ public:
 
     Game() {
         initWindow();
+        initKeys();
         initStates();
     }
 

@@ -26,21 +26,7 @@ public:
     
     //--------------------------------------------------------------------------------------------
     virtual void update( const float& dt ) {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            move(dt, -1.f, 0.f);
-        }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            move(dt, 1.f, 0.f);
-        }
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            move(dt, 0.f, -1.f);
-        }
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            move(dt, 0.f, 1.f);
-        }
 
     };
 

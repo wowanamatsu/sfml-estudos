@@ -6,12 +6,16 @@ private:
 protected:
     sf::RenderWindow* window;
     std::vector<sf::Texture> textures;
-
+    std::map<std::string, int>* supportedKeys;
+    std::map<std::string, int> keyBinds;
     bool quit;
 
+    virtual void initKeyBinds() = 0;
+
 public:
-    State( sf::RenderWindow* window ) {
+    State( sf::RenderWindow* window, std::map<std::string, int>* supportedKeys ) {
         this->window = window;
+        this->supportedKeys = supportedKeys;
         quit = false;
     }
 
@@ -34,7 +38,7 @@ public:
     virtual void endState() = 0;    
 
     //--------------------------------------------------------------------------------------------
-    virtual void updateKeyBinds( const float& dt ) = 0;
+    virtual void updateInput( const float& dt ) = 0;
     virtual void update( const float& dt ) = 0;
     virtual void render( sf::RenderTarget* target=NULL ) = 0;
 
